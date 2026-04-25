@@ -84,13 +84,16 @@ plot(decomp$seasonal[1:24], type="l", main="One Daily Seasonal Cycle")
 adf.test(ts_data)
 adf.test(ts_small)
 
-##An Augmented Dickey-Fuller (ADF) test was performed on the aggregated time series data to assess stationarity. The test produced a statistically significant result (p < 0.01), leading to rejection of the null hypothesis of non-stationarity. This confirms that the time series is stationary and suitable for time series modeling without the need for differencing.
+##An Augmented Dickey-Fuller (ADF) test was performed on the aggregated time series data to assess stationarity. The test produced a statistically significant result (p < 0.01), 
+##leading to rejection of the null hypothesis of non-stationarity. This confirms that the time series is stationary and suitable for time series modeling without the need for differencing.
 
 ##ARIMA MODEL
 model_arima <- auto.arima(ts_small)
 summary(model_arima)
 
-##An ARIMA(5,1,0)(2,0,0)[24] model was fitted to the time series, capturing both short-term dependencies and daily seasonal patterns. The inclusion of seasonal autoregressive terms with a period of 24 confirms strong daily seasonality in energy consumption. Model evaluation shows moderate prediction accuracy (RMSE ≈ 0.63), and residual diagnostics indicate minimal autocorrelation, suggesting a well-fitted model.
+## An ARIMA(5,1,0)(2,0,0)[24] model was fitted to the time series, capturing both short-term dependencies and daily seasonal patterns. The inclusion of seasonal autoregressive terms with
+## a period of 24 confirms strong daily seasonality in energy consumption. Model evaluation shows moderate prediction accuracy (RMSE ≈ 0.63), and residual diagnostics indicate minimal autocorrelation,
+## suggesting a well-fitted model.
 
 
 ##FORECAST
@@ -100,7 +103,8 @@ plot(forecast_arima)
 plot(forecast_arima, main="Energy Consumption Forecast (Next 48 Hours)",
      include = 200)
 
-## The ARIMA model was used to forecast energy consumption for the next 48 hours. The forecast exhibits clear cyclical patterns, reflecting the daily seasonality observed in the data. The predictions remain stable and within a realistic range, indicating that the model captures the underlying temporal structure effectively. The widening confidence intervals highlight increasing uncertainty over time, which is expected in time series forecasting.
+## The ARIMA model was used to forecast energy consumption for the next 48 hours. The forecast exhibits clear cyclical patterns, reflecting the daily seasonality observed in the data.
+## The predictions remain stable and within a realistic range, indicating that the model captures the underlying temporal structure effectively. The widening confidence intervals highlight increasing uncertainty over time, which is expected in time series forecasting.
 ##ETS MODEL
 model_ets <- ets(ts_small)
 forecast_ets <- forecast(model_ets, h=48)
